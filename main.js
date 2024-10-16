@@ -88,6 +88,9 @@ function actualizarBotones() {
     button.className = "answer-btn";
     button.textContent = respuestasActuales[i]; // Asigna la respuesta al botón
 
+    answerButtons.forEach((btn) => {
+      btn.style.backgroundColor = ""; // Restablece el color de fondo
+    });
     button.addEventListener("click", () => {
       button.style.backgroundColor = "#3CB371";
     });
