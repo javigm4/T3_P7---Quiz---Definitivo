@@ -79,8 +79,14 @@ function actualizarPregunta() {
 
 function actualizarRespuesta() {
   const respuestasActuales = respuestas[indice]; // Obtiene las respuestas para la pregunta actual
-  for (let i = 0; i < answerButtons.length; i++) {
-    answerButtons[i].textContent = respuestasActuales[i]; // Actualiza el texto de cada botón de respuesta
+  // Crear los botones de respuesta y agregarlos a answerButtons
+  for (let i = 0; i < respuestas[0].length; i++) {
+    const li = document.createElement("li");
+    const button = document.createElement("button");
+    button.className = "answer-btn";
+    answerButtons.push(button); // Agregar el botón al arreglo answerButtons
+    li.appendChild(button);
+    ul.appendChild(li);
   }
 }
 nextButton.addEventListener("click", incrementar);
