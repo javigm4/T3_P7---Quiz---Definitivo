@@ -69,7 +69,7 @@ function decrease() {
     actualizarPregunta();
   }
 }
-//adasdadsa
+//adasdadsaasdad
 // Actualizar la pregunta
 function actualizarPregunta() {
   p.textContent = preguntas[indice];
