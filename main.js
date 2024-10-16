@@ -3,10 +3,10 @@ import "./style.css";
 const container = document.createElement("div");
 container.className = "container";
 const h2 = document.createElement("h2");
-h2.className = "container h2";
+h2.className = "h2";
 h2.textContent = "Quiz Question";
 const p = document.createElement("p");
-p.className = "container p";
+p.className = "p";
 
 const preguntas = [
   "What is the capital of France?",
