@@ -69,7 +69,7 @@ function decrease() {
     actualizarPregunta();
   }
 }
-
+//adsa
 // Actualizar la pregunta
 function actualizarPregunta() {
   p.textContent = preguntas[indice];
