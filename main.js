@@ -46,6 +46,8 @@ nextButton.className = "footer-btn";
 div.appendChild(previousButton);
 div.appendChild(nextButton);
 
+const answerButtons = [];
+
 for (let i = 0; i < respuestas.length; i++) {
   const li = document.createElement("li");
   const button = document.createElement("button");

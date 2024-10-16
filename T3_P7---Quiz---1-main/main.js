@@ -43,13 +43,13 @@ nextButton.className = "footer-btn";
 div.appendChild(previousButton);
 div.appendChild(nextButton);
 
-// Crear los botones de respuesta
-const answerButtons = []; // Declarar la variable aquí
+// Declarar el array de botones de respuesta fuera de cualquier función
+const answerButtons = [];
 for (let i = 0; i < respuestas[indice].length; i++) {
   const li = document.createElement("li");
   const button = document.createElement("button");
   button.className = "answer-btn";
-  answerButtons.push(button); // Agregar el botón al array
+  answerButtons.push(button); // Añadir el botón al array
   li.appendChild(button);
   ul.appendChild(li);
 }
