@@ -62,7 +62,7 @@ function incrementar() {
     actualizarPregunta();
   }
 }
-
+//prueba
 function decrease() {
   if (indice > 0) {
     indice--;
