@@ -9,14 +9,14 @@ const p = document.createElement("p");
 p.className = "container p";
 
 const preguntas = [
-  "What is the capital of France?",
-  "Which is the world's largest river?",
-  "Who wrote Romeo and Juliet?",
-  "How many planets are there in our Solar System?",
+  "¿Cuál es la capital de Francia?",
+  "¿Cuál es el río más grande del mundo?",
+  "¿Quién escribió Romeo y Julieta?",
+  "¿Cuántos planetas hay en nuestro Sistema Solar?",
 ];
 const respuestas = [
-  ["Berlin", "Madrid", "Paris", "Rome"],
-  ["Amazon", "Nilo", "Yangtze", "Miño"],
+  ["Berlín", "Madrid", "París", "Roma"],
+  ["Amazonas", "Nilo", "Yangtsé", "Miño"],
   ["Jane Austen", "Cervantes", "William Shakespeare", "Charles Dickens"],
   ["7", "8", "9", "10"],
 ];
@@ -34,22 +34,22 @@ container.appendChild(ul);
 
 const div = document.createElement("div");
 const previousButton = document.createElement("button");
-previousButton.textContent = "Previous";
+previousButton.textContent = "Anterior";
 previousButton.className = "footer-btn";
 
 const nextButton = document.createElement("button");
-nextButton.textContent = "Next";
+nextButton.textContent = "Siguiente";
 nextButton.className = "footer-btn";
 div.appendChild(previousButton);
 div.appendChild(nextButton);
 
-// Create answer buttons
-const answerButtons = [];
+// Crear los botones de respuesta
+const answerButtons = []; // Declarar la variable aquí
 for (let i = 0; i < respuestas[indice].length; i++) {
   const li = document.createElement("li");
   const button = document.createElement("button");
   button.className = "answer-btn";
-  answerButtons.push(button);
+  answerButtons.push(button); // Agregar el botón al array
   li.appendChild(button);
   ul.appendChild(li);
 }
@@ -85,5 +85,5 @@ nextButton.addEventListener("click", incrementar);
 previousButton.addEventListener("click", decrease);
 
 container.appendChild(div);
-actualizarPregunta(); // Initialize the first question
-actualizarRespuesta(); // Initialize the first set of answers
+actualizarPregunta(); // Inicializar la primera pregunta
+actualizarRespuesta(); // Inicializar el primer conjunto de respuestas
