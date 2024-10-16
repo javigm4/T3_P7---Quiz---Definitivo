@@ -87,6 +87,10 @@ function actualizarBotones() {
     const button = document.createElement("button");
     button.className = "answer-btn";
     button.textContent = respuestasActuales[i]; // Asigna la respuesta al botón
+
+    button.addEventListener("click", () => {
+      button.style.backgroundColor = "#3CB371";
+    });
     li.appendChild(button);
     ul.appendChild(li);
   }
