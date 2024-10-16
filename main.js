@@ -88,10 +88,12 @@ function actualizarBotones() {
     button.className = "answer-btn";
     button.textContent = respuestasActuales[i]; // Asigna la respuesta al botón
 
-    answerButtons.forEach((btn) => {
-      btn.style.backgroundColor = ""; // Restablece el color de fondo
-    });
     button.addEventListener("click", () => {
+      answerButtons.forEach((btn) => {
+        btn.style.backgroundColor = ""; // Restablece el color de fondo
+        btn.style.color = ""; // Restablece el color del texto si lo deseas
+      });
+
       button.style.backgroundColor = "#3CB371";
     });
     li.appendChild(button);
