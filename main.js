@@ -17,15 +17,12 @@ const preguntas = [
 const respuestas = [
   ["Berlin", "Madrid", "Paris", "Rome"],
   ["Amazon", "Nilo", "Yangsté", "Miño"],
-  ["Jane Austen", "Cervantes", "William Shakerpeare", "Charles Dicksen"],
+  ["Jane Austen", "Cervantes", "William Shakespeare", "Charles Dickens"],
   ["7", "8", "9", "10"],
 ];
 
 let indice = 0;
 p.textContent = preguntas[indice];
-if ((indice = 0)) {
-  previousButton.className = "footer-btn:disabled"; //aqui me quede
-}
 
 const ul = document.createElement("ul");
 const body = document.querySelector("body");
@@ -46,13 +43,16 @@ nextButton.className = "footer-btn";
 div.appendChild(previousButton);
 div.appendChild(nextButton);
 
+// Crear un arreglo para almacenar los botones de respuesta
 const answerButtons = [];
 
-for (let i = 0; i < respuestas.length; i++) {
+// Crear los botones de respuesta y agregarlos al arreglo
+for (let i = 0; i < 4; i++) {
+  // Cambié aquí para que sea 4 en lugar de respuestas.length
   const li = document.createElement("li");
   const button = document.createElement("button");
   button.className = "answer-btn";
-
+  answerButtons.push(button); // Agregar el botón al arreglo answerButtons
   li.appendChild(button);
   ul.appendChild(li);
 }
@@ -62,36 +62,34 @@ function incrementar() {
   if (indice < preguntas.length - 1) {
     indice++;
     actualizarPregunta();
+    actualizarRespuesta(); // Llamar a actualizarRespuesta al cambiar de pregunta
   }
 }
-//prueba
+
 function decrease() {
   if (indice > 0) {
     indice--;
     actualizarPregunta();
+    actualizarRespuesta(); // Llamar a actualizarRespuesta al cambiar de pregunta
   }
 }
-//adasdadsaasdad
+
 // Actualizar la pregunta
 function actualizarPregunta() {
   p.textContent = preguntas[indice];
 }
 
+// Actualizar las respuestas
 function actualizarRespuesta() {
   const respuestasActuales = respuestas[indice]; // Obtiene las respuestas para la pregunta actual
-  // Crear los botones de respuesta y agregarlos a answerButtons
-  for (let i = 0; i < respuestas[0].length; i++) {
-    const li = document.createElement("li");
-    const button = document.createElement("button");
-    button.className = "answer-btn";
-    answerButtons.push(button); // Agregar el botón al arreglo answerButtons
-    li.appendChild(button);
-    ul.appendChild(li);
+  for (let i = 0; i < answerButtons.length; i++) {
+    answerButtons[i].textContent = respuestasActuales[i]; // Actualiza el texto de cada botón de respuesta
   }
 }
+
 nextButton.addEventListener("click", incrementar);
 previousButton.addEventListener("click", decrease);
 
 container.appendChild(div);
 actualizarPregunta(); // Inicializar la primera pregunta
-actualizarRespuesta();
+actualizarRespuesta(); // Inicializar las respuestas para la primera pregunta
