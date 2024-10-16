@@ -8,25 +8,34 @@ h2.textContent = "Quiz Question";
 const p = document.createElement("p");
 p.className = "p";
 
-const preguntas = [
-  "What is the capital of France?",
-  "Which is the world's largest river?",
-  "Who wrote Romeo and Juliet?",
-  "How many planets are there in our Solar System?",
-];
-const respuestas = [
-  ["Berlin", "Madrid", "Paris", "Rome"],
-  ["Amazon", "Nilo", "Yangsté", "Miño"],
-  ["Jane Austen", "Cervantes", "William Shakespeare", "Charles Dickens"],
-  ["7", "8", "9", "10"],
-];
+const quiz = {
+  pregunta1: {
+    pregunta: "What is the capital of France?",
+    respuestas: ["Berlin", "Madrid", "Paris", "Rome"],
+  },
+  pregunta2: {
+    pregunta: "Which is the world's largest river?",
+    respuestas: ["Amazon", "Nilo", "Yangsté", "Miño"],
+  },
+  pregunta3: {
+    pregunta: "Who wrote Romeo and Juliet?",
+    respuestas: [
+      "Jane Austen",
+      "Cervantes",
+      "William Shakespeare",
+      "Charles Dickens",
+    ],
+  },
+  pregunta4: {
+    pregunta: "How many planets are there in our Solar System?",
+    respuestas: ["7", "8", "9", "10"],
+  },
+};
 
+const preguntasKeys = Object.keys(quiz);
 let indice = 0;
-p.textContent = preguntas[indice];
 
 const ul = document.createElement("ul");
-const body = document.querySelector("body");
-
 document.body.appendChild(container);
 container.appendChild(h2);
 container.appendChild(p);
@@ -43,26 +52,15 @@ nextButton.className = "footer-btn";
 div.appendChild(previousButton);
 div.appendChild(nextButton);
 
-// Crear un arreglo para almacenar los botones de respuesta
+// Inicializar los botones de respuesta
 const answerButtons = [];
 
-// Crear los botones de respuesta y agregarlos al arreglo
-for (let i = 0; i < 4; i++) {
-  // Cambié aquí para que sea 4 en lugar de respuestas.length
-  const li = document.createElement("li");
-  const button = document.createElement("button");
-  button.className = "answer-btn";
-  answerButtons.push(button); // Agregar el botón al arreglo answerButtons
-  li.appendChild(button);
-  ul.appendChild(li);
-}
-
-// Botones
+// Funciones de navegación
 function incrementar() {
-  if (indice < preguntas.length - 1) {
+  if (indice < preguntasKeys.length - 1) {
     indice++;
     actualizarPregunta();
-    actualizarRespuesta(); // Llamar a actualizarRespuesta al cambiar de pregunta
+    actualizarBotones(); // Actualizar botones de respuesta
   }
 }
 
@@ -70,26 +68,35 @@ function decrease() {
   if (indice > 0) {
     indice--;
     actualizarPregunta();
-    actualizarRespuesta(); // Llamar a actualizarRespuesta al cambiar de pregunta
+    actualizarBotones(); // Actualizar botones de respuesta
   }
 }
 
 // Actualizar la pregunta
 function actualizarPregunta() {
-  p.textContent = preguntas[indice];
+  p.textContent = quiz[preguntasKeys[indice]].pregunta; // Actualiza el texto de la pregunta
 }
 
-// Actualizar las respuestas
-function actualizarRespuesta() {
-  const respuestasActuales = respuestas[indice]; // Obtiene las respuestas para la pregunta actual
-  for (let i = 0; i < answerButtons.length; i++) {
-    answerButtons[i].textContent = respuestasActuales[i]; // Actualiza el texto de cada botón de respuesta
+// Actualizar los botones de respuesta
+function actualizarBotones() {
+  ul.innerHTML = ""; // Limpiar la lista actual de botones
+  const respuestasActuales = quiz[preguntasKeys[indice]].respuestas; // Obtiene las respuestas para la pregunta actual
+
+  for (let i = 0; i < respuestasActuales.length; i++) {
+    const li = document.createElement("li");
+    const button = document.createElement("button");
+    button.className = "answer-btn";
+    button.textContent = respuestasActuales[i]; // Asigna la respuesta al botón
+    li.appendChild(button);
+    ul.appendChild(li);
   }
 }
 
+// Eventos de los botones
 nextButton.addEventListener("click", incrementar);
 previousButton.addEventListener("click", decrease);
 
+// Inicializa la primera pregunta y los botones de respuesta
+actualizarPregunta();
+actualizarBotones();
 container.appendChild(div);
-actualizarPregunta(); // Inicializar la primera pregunta
-actualizarRespuesta(); // Inicializar las respuestas para la primera pregunta
