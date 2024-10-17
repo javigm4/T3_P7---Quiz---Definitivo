@@ -34,6 +34,7 @@ const quiz = {
 
 const preguntasKeys = Object.keys(quiz);
 let indice = 0;
+let respuestaSeleccionada = null; // Variable para almacenar la respuesta seleccionada
 
 const ul = document.createElement("ul");
 document.body.appendChild(container);
@@ -78,10 +79,6 @@ function actualizarPregunta() {
 }
 
 // Actualizar los botones de respuesta
-
-let indice = 0;
-let respuestaSeleccionada = null; // Nueva variable para almacenar la respuesta seleccionada
-
 function actualizarBotones() {
   ul.innerHTML = ""; // Limpiar la lista actual de botones
   const respuestasActuales = quiz[preguntasKeys[indice]].respuestas; // Obtiene las respuestas para la pregunta actual
@@ -119,23 +116,6 @@ function actualizarBotones() {
   }
 }
 
-// Funciones para NEXT y PREVIOUS
-function incrementar() {
-  if (indice < preguntasKeys.length - 1) {
-    indice++;
-    actualizarPregunta();
-    actualizarBotones(); // Actualizar botones de respuesta
-  }
-}
-
-function decrease() {
-  if (indice > 0) {
-    indice--;
-    actualizarPregunta();
-    actualizarBotones(); // Actualizar botones de respuesta
-  }
-}
-
 // Inicializa la primera pregunta y los botones de respuesta
 actualizarPregunta();
 actualizarBotones();
@@ -144,7 +124,5 @@ actualizarBotones();
 nextButton.addEventListener("click", incrementar);
 previousButton.addEventListener("click", decrease);
 
-// Inicializa la primera pregunta y los botones de respuesta
-actualizarPregunta();
-actualizarBotones();
+// Añadir el contenedor de botones al DOM
 container.appendChild(div);
