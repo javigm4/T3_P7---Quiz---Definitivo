@@ -1,13 +1,17 @@
 import "./style.css";
 
+// --- Variables Globales ---
 const container = document.createElement("div");
 container.className = "container";
+
 const h2 = document.createElement("h2");
 h2.className = "h2";
 h2.textContent = "Quiz Question";
+
 const p = document.createElement("p");
 p.className = "p";
 
+// --- Definición de Preguntas ---
 const quiz = {
   pregunta1: {
     pregunta: "What is the capital of France?",
@@ -36,13 +40,13 @@ const quiz = {
   },
 };
 
+// --- Variables de Control ---
 const preguntasKeys = Object.keys(quiz);
 let indice = 0;
 let nRespuestasSeleccionadas = 0;
-
-// Almacenar la respuesta seleccionada para cada pregunta
 const respuestasSeleccionadas = Array(preguntasKeys.length).fill(null);
 
+// --- Elementos del DOM ---
 const ul = document.createElement("ul");
 document.body.appendChild(container);
 container.appendChild(h2);
@@ -61,22 +65,20 @@ nextButton.className = "footer-btn";
 const checkButton = document.createElement("button");
 checkButton.textContent = "Check";
 checkButton.className = "footer-btn";
-checkButton.disabled = "true";
+checkButton.disabled = true;
 
 div.appendChild(previousButton);
 div.appendChild(nextButton);
 div.appendChild(checkButton);
 
-// Inicializar los botones de respuesta
+// --- Inicializar Respuestas ---
 const answerButtons = [];
-let rSeleccionadas = 0;
 
-// Actualizar la pregunta
+// --- Funciones del Quiz ---
 function actualizarPregunta() {
   p.textContent = quiz[preguntasKeys[indice]].pregunta; // Actualiza el texto de la pregunta
 }
 
-// Función para comprobar todas las respuestas
 function comprobarRespuestas() {
   let Ncorrectas = 0; // Reiniciar el contador de respuestas correctas
 
@@ -91,11 +93,6 @@ function comprobarRespuestas() {
 
   return Ncorrectas; // Retornar el total de respuestas correctas
 }
-
-checkButton.addEventListener("click", () => {
-  const totalCorrectas = comprobarRespuestas(); // Comprobar todas las respuestas
-  alertRespuestasCorrectas(totalCorrectas); // Mostrar alerta con la puntuación
-});
 
 function alertRespuestasCorrectas(totalCorrectas) {
   alert(totalCorrectas + " answers from " + preguntasKeys.length);
@@ -117,15 +114,11 @@ function actualizarBotones() {
     if (respuestasSeleccionadas[indice] === i) {
       button.classList.add("selected");
       button.style.backgroundColor = "#3CB371"; // Color verde para el botón seleccionado
-      console.log(nRespuestasSeleccionadas);
     }
 
     button.addEventListener("click", () => {
-      //--LO Q HE METIDO AHORA-----
       if (respuestasSeleccionadas[indice] === null) {
         nRespuestasSeleccionadas++; // Aumentar el contador si es una nueva selección
-      } else {
-        // Si ya se había seleccionado una respuesta, no aumentar el contador
       }
 
       // Guardar el índice de la respuesta seleccionada para la pregunta actual
@@ -140,9 +133,7 @@ function actualizarBotones() {
       // Marcar el botón clickeado como seleccionado
       button.classList.add("selected");
       button.style.backgroundColor = "#3CB371"; // Color verde para el botón clicado
-      if (nRespuestasSeleccionadas == 4) {
-        checkButton.disabled = false;
-      }
+      checkButton.disabled = nRespuestasSeleccionadas < 4; // Activar el botón Check si hay 4 respuestas seleccionadas
     });
 
     li.appendChild(button);
@@ -151,9 +142,11 @@ function actualizarBotones() {
   }
 }
 
-//----------------------------CHECKBUTTON---------------------------------------
-actualizarPregunta();
-actualizarBotones();
+// --- Eventos de Botones ---
+checkButton.addEventListener("click", () => {
+  const totalCorrectas = comprobarRespuestas(); // Comprobar todas las respuestas
+  alertRespuestasCorrectas(totalCorrectas); // Mostrar alerta con la puntuación
+});
 
 nextButton.addEventListener("click", () => {
   if (indice < preguntasKeys.length - 1) {
@@ -162,6 +155,7 @@ nextButton.addEventListener("click", () => {
     actualizarBotones();
   }
 });
+
 previousButton.addEventListener("click", () => {
   if (indice > 0) {
     indice--;
@@ -169,4 +163,8 @@ previousButton.addEventListener("click", () => {
     actualizarBotones();
   }
 });
+
+// --- Inicializar la Interfaz ---
+actualizarPregunta();
+actualizarBotones();
 container.appendChild(div);
