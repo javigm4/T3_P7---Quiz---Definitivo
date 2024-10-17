@@ -34,7 +34,9 @@ const quiz = {
 
 const preguntasKeys = Object.keys(quiz);
 let indice = 0;
-let respuestaSeleccionada = null; // Nueva variable para almacenar la respuesta seleccionada
+
+// Almacenar la respuesta seleccionada para cada pregunta
+const respuestasSeleccionadas = Array(preguntasKeys.length).fill(null);
 
 const ul = document.createElement("ul");
 document.body.appendChild(container);
@@ -83,8 +85,7 @@ function actualizarBotones() {
   ul.innerHTML = ""; // Limpiar la lista actual de botones
   const respuestasActuales = quiz[preguntasKeys[indice]].respuestas; // Obtiene las respuestas para la pregunta actual
 
-  // Limpiar el estado anterior para los botones
-  answerButtons.length = 0;
+  answerButtons.length = 0; // Limpiar el estado anterior para los botones
 
   for (let i = 0; i < respuestasActuales.length; i++) {
     const li = document.createElement("li");
@@ -93,14 +94,14 @@ function actualizarBotones() {
     button.textContent = respuestasActuales[i]; // Asigna la respuesta al botón
 
     // Establecer el color de fondo si es la respuesta seleccionada
-    if (respuestaSeleccionada === i) {
+    if (respuestasSeleccionadas[indice] === i) {
       button.classList.add("selected");
-      button.style.backgroundColor = "#3CB371";
+      button.style.backgroundColor = "#3CB371"; // Color verde para el botón seleccionado
     }
 
     button.addEventListener("click", () => {
-      // Guardar el índice de la respuesta seleccionada
-      respuestaSeleccionada = i;
+      // Guardar el índice de la respuesta seleccionada para la pregunta actual
+      respuestasSeleccionadas[indice] = i;
 
       // Restablecer el color de fondo de todos los botones
       answerButtons.forEach((btn) => {
@@ -110,7 +111,7 @@ function actualizarBotones() {
 
       // Marcar el botón clickeado como seleccionado
       button.classList.add("selected");
-      button.style.backgroundColor = "#3CB371";
+      button.style.backgroundColor = "#3CB371"; // Color verde para el botón clicado
     });
 
     li.appendChild(button);
