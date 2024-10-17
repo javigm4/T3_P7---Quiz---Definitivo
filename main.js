@@ -89,13 +89,15 @@ function actualizarBotones() {
     button.textContent = respuestasActuales[i]; // Asigna la respuesta al botón
 
     button.addEventListener("click", () => {
-      // Restablece el color de fondo de todos los botones antes de cambiar el color del clickeado
       answerButtons.forEach((btn) => {
-        btn.style.backgroundColor = ""; // Restablece el color de fondo
+        btn.style.backgroundColor = "";
+        btn.classList.remove("selected");
       });
 
-      // Cambia el color de fondo del botón clickeado
-      button.style.backgroundColor = "#3CB371";
+      button.classList.add("selected");
+      document.querySelectorAll(".selected").forEach((element) => {
+        element.style.backgroundColor = "#3CB371";
+      });
     });
 
     li.appendChild(button);
