@@ -101,6 +101,7 @@ function alertRespuestasCorrectas(totalCorrectas) {
 }
 
 let nRespuestasSeleccionadas = 0;
+
 function actualizarBotones() {
   ul.innerHTML = ""; // Limpiar la lista actual de botones
   const respuestasActuales = quiz[preguntasKeys[indice]].respuestas; // Obtiene las respuestas para la pregunta actual
@@ -118,6 +119,7 @@ function actualizarBotones() {
       button.classList.add("selected");
       button.style.backgroundColor = "#3CB371"; // Color verde para el botón seleccionado
       nRespuestasSeleccionadas++;
+      console.log(nRespuestasSeleccionadas);
     }
 
     button.addEventListener("click", () => {
