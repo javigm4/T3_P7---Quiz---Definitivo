@@ -73,28 +73,29 @@ function actualizarPregunta() {
   p.textContent = quiz[preguntasKeys[indice]].pregunta; // Actualiza el texto de la pregunta
 }
 
-//---------------------------------ACTUALIZAR BOTONES------------------------------------------------------------------------------
-let Ncorrectas = 0;
+// Función para comprobar todas las respuestas
 function comprobarRespuestas() {
-  if (
-    quiz[preguntasKeys[indice]].respuestas[respuestasSeleccionadas[indice]] ===
-    quiz[preguntasKeys[indice]].correcta
-  ) {
-    Ncorrectas++;
-  } else {
-    if (Ncorrectas > 0) {
-      Ncorrectas--;
+  let Ncorrectas = 0; // Reiniciar el contador de respuestas correctas
+
+  preguntasKeys.forEach((key, index) => {
+    if (
+      quiz[key].respuestas[respuestasSeleccionadas[index]] ===
+      quiz[key].correcta
+    ) {
+      Ncorrectas++;
     }
-  }
+  });
+
+  return Ncorrectas; // Retornar el total de respuestas correctas
 }
 
 checkButton.addEventListener("click", () => {
-  comprobarRespuestas(); // Comprobar las respuestas
-  alertRespuestasCorrectas(); // Mostrar alerta con la puntuación
+  const totalCorrectas = comprobarRespuestas(); // Comprobar todas las respuestas
+  alertRespuestasCorrectas(totalCorrectas); // Mostrar alerta con la puntuación
 });
 
-function alertRespuestasCorrectas() {
-  alert(Ncorrectas + " answers from 4");
+function alertRespuestasCorrectas(totalCorrectas) {
+  alert(totalCorrectas + " answers from " + preguntasKeys.length);
 }
 
 function actualizarBotones() {
