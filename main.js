@@ -60,7 +60,6 @@ nextButton.className = "footer-btn";
 const checkButton = document.createElement("button");
 checkButton.textContent = "Check";
 checkButton.className = "footer-btn";
-checkButton.disabled = true; // Deshabilitar el botón Check inicialmente
 
 div.appendChild(previousButton);
 div.appendChild(nextButton);
@@ -68,36 +67,38 @@ div.appendChild(checkButton);
 
 // Inicializar los botones de respuesta
 const answerButtons = [];
-
-// Funciones de navegación
-function incrementar() {
-  if (indice < preguntasKeys.length - 1) {
-    indice++;
-    actualizarPregunta();
-    actualizarBotones();
-  }
-}
-
-function decrease() {
-  if (indice > 0) {
-    indice--;
-    actualizarPregunta();
-    actualizarBotones();
-  }
-}
+let rSeleccionadas = 0;
 
 // Actualizar la pregunta
 function actualizarPregunta() {
   p.textContent = quiz[preguntasKeys[indice]].pregunta; // Actualiza el texto de la pregunta
-  checkButton.disabled = !todasLasPreguntasRespondidas(); // Verifica si todas las preguntas están respondidas
 }
 
-// Verificar si todas las preguntas han sido respondidas
-function todasLasPreguntasRespondidas() {
-  return respuestasSeleccionadas.every((respuesta) => respuesta !== null);
+// Función para comprobar todas las respuestas
+function comprobarRespuestas() {
+  let Ncorrectas = 0; // Reiniciar el contador de respuestas correctas
+
+  preguntasKeys.forEach((key, index) => {
+    if (
+      quiz[key].respuestas[respuestasSeleccionadas[index]] ===
+      quiz[key].correcta
+    ) {
+      Ncorrectas++;
+    }
+  });
+
+  return Ncorrectas; // Retornar el total de respuestas correctas
 }
 
-// Actualizar botones
+checkButton.addEventListener("click", () => {
+  const totalCorrectas = comprobarRespuestas(); // Comprobar todas las respuestas
+  alertRespuestasCorrectas(totalCorrectas); // Mostrar alerta con la puntuación
+});
+
+function alertRespuestasCorrectas(totalCorrectas) {
+  alert(totalCorrectas + " answers from " + preguntasKeys.length);
+}
+
 function actualizarBotones() {
   ul.innerHTML = ""; // Limpiar la lista actual de botones
   const respuestasActuales = quiz[preguntasKeys[indice]].respuestas; // Obtiene las respuestas para la pregunta actual
@@ -129,9 +130,6 @@ function actualizarBotones() {
       // Marcar el botón clickeado como seleccionado
       button.classList.add("selected");
       button.style.backgroundColor = "#3CB371"; // Color verde para el botón clicado
-
-      // Verificar si todas las preguntas están respondidas después de seleccionar una respuesta
-      checkButton.disabled = !todasLasPreguntasRespondidas();
     });
 
     li.appendChild(button);
@@ -141,29 +139,21 @@ function actualizarBotones() {
 }
 
 //----------------------------CHECKBUTTON---------------------------------------
-checkButton.addEventListener("click", () => {
-  const Ncorrectas = comprobarRespuestas(); // Comprobar las respuestas
-  alertRespuestasCorrectas(Ncorrectas); // Mostrar alerta con la puntuación
-});
-
-function comprobarRespuestas() {
-  let Ncorrectas = 0; // Reiniciar el contador de respuestas correctas
-  preguntasKeys.forEach((key, index) => {
-    // Para cada pregunta, comprueba si la respuesta seleccionada es correcta
-    if (
-      quiz[key].respuestas[respuestasSeleccionadas[index]] ===
-      quiz[key].correcta
-    ) {
-      Ncorrectas++; // Aumenta el contador si es correcta
-    }
-  });
-  return Ncorrectas; // Retornar el total de respuestas correctas
-}
-
-function alertRespuestasCorrectas(Ncorrectas) {
-  alert(Ncorrectas + " answers from " + preguntasKeys.length);
-}
-
 actualizarPregunta();
 actualizarBotones();
+
+nextButton.addEventListener("click", () => {
+  if (indice < preguntasKeys.length - 1) {
+    indice++;
+    actualizarPregunta();
+    actualizarBotones();
+  }
+});
+previousButton.addEventListener("click", () => {
+  if (indice > 0) {
+    indice--;
+    actualizarPregunta();
+    actualizarBotones();
+  }
+});
 container.appendChild(div);
