@@ -12,10 +12,12 @@ const quiz = {
   pregunta1: {
     pregunta: "What is the capital of France?",
     respuestas: ["Berlin", "Madrid", "Paris", "Rome"],
+    correcta: "Paris",
   },
   pregunta2: {
     pregunta: "Which is the world's largest river?",
     respuestas: ["Amazon", "Nilo", "Yangsté", "Miño"],
+    correcta: "Nilo",
   },
   pregunta3: {
     pregunta: "Who wrote Romeo and Juliet?",
@@ -25,10 +27,12 @@ const quiz = {
       "William Shakespeare",
       "Charles Dickens",
     ],
+    correcta: "William Shakespeare",
   },
   pregunta4: {
     pregunta: "How many planets are there in our Solar System?",
     respuestas: ["7", "8", "9", "10"],
+    correcta: "8",
   },
 };
 
@@ -52,26 +56,34 @@ previousButton.className = "footer-btn";
 const nextButton = document.createElement("button");
 nextButton.textContent = "Next";
 nextButton.className = "footer-btn";
+
+const checkButton = document.createElement("button");
+checkButton.textContent = "Check";
+checkButton.className = "footer-btn";
+
 div.appendChild(previousButton);
 div.appendChild(nextButton);
+div.appendChild(checkButton);
 
 // Inicializar los botones de respuesta
 const answerButtons = [];
 
 // Funciones de navegación
 function incrementar() {
+  comprobarRespuestas(); // Comprobar respuestas antes de avanzar
   if (indice < preguntasKeys.length - 1) {
     indice++;
     actualizarPregunta();
-    actualizarBotones(); // Actualizar botones de respuesta
+    actualizarBotones();
   }
 }
 
 function decrease() {
+  comprobarRespuestas(); // Comprobar respuestas antes de retroceder
   if (indice > 0) {
     indice--;
     actualizarPregunta();
-    actualizarBotones(); // Actualizar botones de respuesta
+    actualizarBotones();
   }
 }
 
@@ -80,7 +92,29 @@ function actualizarPregunta() {
   p.textContent = quiz[preguntasKeys[indice]].pregunta; // Actualiza el texto de la pregunta
 }
 
-// Actualizar los botones de respuesta
+//---------------------------------ACTUALIZAR BOTONES------------------------------------------------------------------------------
+let Ncorrectas = 0;
+function comprobarRespuestas() {
+  if (
+    quiz[preguntasKeys[indice]].respuestas[respuestasSeleccionadas[indice]] ===
+    quiz[preguntasKeys[indice]].correcta
+  ) {
+    Ncorrectas++;
+  } else {
+    if (Ncorrectas > 0) {
+      Ncorrectas--;
+    }
+  }
+}
+
+checkButton.addEventListener("click", () => {
+  comprobarRespuestas(); // Comprobar las respuestas
+  alertRespuestasCorrectas(); // Mostrar alerta con la puntuación
+});
+
+function alertRespuestasCorrectas() {
+  alert(Ncorrectas + "answers from 4");
+}
 function actualizarBotones() {
   ul.innerHTML = ""; // Limpiar la lista actual de botones
   const respuestasActuales = quiz[preguntasKeys[indice]].respuestas; // Obtiene las respuestas para la pregunta actual
@@ -120,11 +154,11 @@ function actualizarBotones() {
   }
 }
 
-// Inicializa la primera pregunta y los botones de respuesta
+//----------------------------CHECKBUTTON---------------------------------------
 actualizarPregunta();
 actualizarBotones();
+comprobarRespuestas();
 
-// Eventos de los botones
 nextButton.addEventListener("click", incrementar);
 previousButton.addEventListener("click", decrease);
 container.appendChild(div);
