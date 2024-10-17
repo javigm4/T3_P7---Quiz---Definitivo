@@ -78,6 +78,10 @@ function actualizarPregunta() {
 }
 
 // Actualizar los botones de respuesta
+
+let indice = 0;
+let respuestaSeleccionada = null; // Nueva variable para almacenar la respuesta seleccionada
+
 function actualizarBotones() {
   ul.innerHTML = ""; // Limpiar la lista actual de botones
   const respuestasActuales = quiz[preguntasKeys[indice]].respuestas; // Obtiene las respuestas para la pregunta actual
@@ -88,16 +92,25 @@ function actualizarBotones() {
     button.className = "answer-btn";
     button.textContent = respuestasActuales[i]; // Asigna la respuesta al botón
 
+    // Establecer el color de fondo si es la respuesta seleccionada
+    if (respuestaSeleccionada === i) {
+      button.classList.add("selected");
+      button.style.backgroundColor = "#3CB371";
+    }
+
     button.addEventListener("click", () => {
+      // Guardar el índice de la respuesta seleccionada
+      respuestaSeleccionada = i;
+
+      // Restablecer el color de fondo de todos los botones
       answerButtons.forEach((btn) => {
         btn.style.backgroundColor = "";
         btn.classList.remove("selected");
       });
 
+      // Marcar el botón clickeado como seleccionado
       button.classList.add("selected");
-      document.querySelectorAll(".selected").forEach((element) => {
-        element.style.backgroundColor = "#3CB371";
-      });
+      button.style.backgroundColor = "#3CB371";
     });
 
     li.appendChild(button);
@@ -105,6 +118,27 @@ function actualizarBotones() {
     ul.appendChild(li);
   }
 }
+
+// Funciones para NEXT y PREVIOUS
+function incrementar() {
+  if (indice < preguntasKeys.length - 1) {
+    indice++;
+    actualizarPregunta();
+    actualizarBotones(); // Actualizar botones de respuesta
+  }
+}
+
+function decrease() {
+  if (indice > 0) {
+    indice--;
+    actualizarPregunta();
+    actualizarBotones(); // Actualizar botones de respuesta
+  }
+}
+
+// Inicializa la primera pregunta y los botones de respuesta
+actualizarPregunta();
+actualizarBotones();
 
 // Eventos de los botones
 nextButton.addEventListener("click", incrementar);
