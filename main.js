@@ -38,6 +38,7 @@ const quiz = {
 
 const preguntasKeys = Object.keys(quiz);
 let indice = 0;
+let nRespuestasSeleccionadas = 0;
 
 // Almacenar la respuesta seleccionada para cada pregunta
 const respuestasSeleccionadas = Array(preguntasKeys.length).fill(null);
@@ -100,8 +101,6 @@ function alertRespuestasCorrectas(totalCorrectas) {
   alert(totalCorrectas + " answers from " + preguntasKeys.length);
 }
 
-let nRespuestasSeleccionadas = 0;
-
 function actualizarBotones() {
   ul.innerHTML = ""; // Limpiar la lista actual de botones
   const respuestasActuales = quiz[preguntasKeys[indice]].respuestas; // Obtiene las respuestas para la pregunta actual
@@ -122,6 +121,13 @@ function actualizarBotones() {
     }
 
     button.addEventListener("click", () => {
+      //--LO Q HE METIDO AHORA-----
+      if (respuestasSeleccionadas[indice] === null) {
+        nRespuestasSeleccionadas++; // Aumentar el contador si es una nueva selección
+      } else {
+        // Si ya se había seleccionado una respuesta, no aumentar el contador
+      }
+
       // Guardar el índice de la respuesta seleccionada para la pregunta actual
       respuestasSeleccionadas[indice] = i;
 
@@ -129,7 +135,6 @@ function actualizarBotones() {
       answerButtons.forEach((btn) => {
         btn.style.backgroundColor = "";
         btn.classList.remove("selected");
-        nRespuestasSeleccionadas++;
       });
 
       // Marcar el botón clickeado como seleccionado
