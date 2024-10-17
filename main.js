@@ -34,7 +34,7 @@ const quiz = {
 
 const preguntasKeys = Object.keys(quiz);
 let indice = 0;
-let respuestaSeleccionada = null; // Variable para almacenar la respuesta seleccionada
+let respuestaSeleccionada = null; // Nueva variable para almacenar la respuesta seleccionada
 
 const ul = document.createElement("ul");
 document.body.appendChild(container);
@@ -77,9 +77,14 @@ function decrease() {
 function actualizarPregunta() {
   p.textContent = quiz[preguntasKeys[indice]].pregunta; // Actualiza el texto de la pregunta
 }
+
+// Actualizar los botones de respuesta
 function actualizarBotones() {
   ul.innerHTML = ""; // Limpiar la lista actual de botones
   const respuestasActuales = quiz[preguntasKeys[indice]].respuestas; // Obtiene las respuestas para la pregunta actual
+
+  // Limpiar el estado anterior para los botones
+  answerButtons.length = 0;
 
   for (let i = 0; i < respuestasActuales.length; i++) {
     const li = document.createElement("li");
@@ -121,6 +126,4 @@ actualizarBotones();
 // Eventos de los botones
 nextButton.addEventListener("click", incrementar);
 previousButton.addEventListener("click", decrease);
-
-// Añadir el contenedor de botones al DOM
 container.appendChild(div);
