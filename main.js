@@ -68,25 +68,6 @@ div.appendChild(checkButton);
 // Inicializar los botones de respuesta
 const answerButtons = [];
 
-// Funciones de navegación
-function incrementar() {
-  comprobarRespuestas(); // Comprobar respuestas antes de avanzar
-  if (indice < preguntasKeys.length - 1) {
-    indice++;
-    actualizarPregunta();
-    actualizarBotones();
-  }
-}
-
-function decrease() {
-  comprobarRespuestas(); // Comprobar respuestas antes de retroceder
-  if (indice > 0) {
-    indice--;
-    actualizarPregunta();
-    actualizarBotones();
-  }
-}
-
 // Actualizar la pregunta
 function actualizarPregunta() {
   p.textContent = quiz[preguntasKeys[indice]].pregunta; // Actualiza el texto de la pregunta
@@ -113,8 +94,9 @@ checkButton.addEventListener("click", () => {
 });
 
 function alertRespuestasCorrectas() {
-  alert(Ncorrectas + "answers from 4");
+  alert(Ncorrectas + " answers from 4");
 }
+
 function actualizarBotones() {
   ul.innerHTML = ""; // Limpiar la lista actual de botones
   const respuestasActuales = quiz[preguntasKeys[indice]].respuestas; // Obtiene las respuestas para la pregunta actual
@@ -157,8 +139,19 @@ function actualizarBotones() {
 //----------------------------CHECKBUTTON---------------------------------------
 actualizarPregunta();
 actualizarBotones();
-comprobarRespuestas();
 
-nextButton.addEventListener("click", incrementar);
-previousButton.addEventListener("click", decrease);
+nextButton.addEventListener("click", () => {
+  if (indice < preguntasKeys.length - 1) {
+    indice++;
+    actualizarPregunta();
+    actualizarBotones();
+  }
+});
+previousButton.addEventListener("click", () => {
+  if (indice > 0) {
+    indice--;
+    actualizarPregunta();
+    actualizarBotones();
+  }
+});
 container.appendChild(div);
