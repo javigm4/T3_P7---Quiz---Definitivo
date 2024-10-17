@@ -118,7 +118,6 @@ function actualizarBotones() {
     if (respuestasSeleccionadas[indice] === i) {
       button.classList.add("selected");
       button.style.backgroundColor = "#3CB371"; // Color verde para el botón seleccionado
-      nRespuestasSeleccionadas++;
       console.log(nRespuestasSeleccionadas);
     }
 
@@ -130,6 +129,7 @@ function actualizarBotones() {
       answerButtons.forEach((btn) => {
         btn.style.backgroundColor = "";
         btn.classList.remove("selected");
+        nRespuestasSeleccionadas++;
       });
 
       // Marcar el botón clickeado como seleccionado
