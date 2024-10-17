@@ -60,6 +60,7 @@ nextButton.className = "footer-btn";
 const checkButton = document.createElement("button");
 checkButton.textContent = "Check";
 checkButton.className = "footer-btn";
+checkButton.disabled = "true";
 
 div.appendChild(previousButton);
 div.appendChild(nextButton);
@@ -99,6 +100,7 @@ function alertRespuestasCorrectas(totalCorrectas) {
   alert(totalCorrectas + " answers from " + preguntasKeys.length);
 }
 
+let nRespuestasSeleccionadas = 0;
 function actualizarBotones() {
   ul.innerHTML = ""; // Limpiar la lista actual de botones
   const respuestasActuales = quiz[preguntasKeys[indice]].respuestas; // Obtiene las respuestas para la pregunta actual
@@ -115,6 +117,7 @@ function actualizarBotones() {
     if (respuestasSeleccionadas[indice] === i) {
       button.classList.add("selected");
       button.style.backgroundColor = "#3CB371"; // Color verde para el botón seleccionado
+      nRespuestasSeleccionadas++;
     }
 
     button.addEventListener("click", () => {
@@ -130,6 +133,9 @@ function actualizarBotones() {
       // Marcar el botón clickeado como seleccionado
       button.classList.add("selected");
       button.style.backgroundColor = "#3CB371"; // Color verde para el botón clicado
+      if (nRespuestasSeleccionadas == 4) {
+        checkButton.disabled = false;
+      }
     });
 
     li.appendChild(button);
