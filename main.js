@@ -140,7 +140,7 @@ function actualizarBotones() {
     answerButtons.push(button); // Agregar el botón al arreglo
     ul.appendChild(li);
   }
-}
+} //sdd
 
 // --- Eventos de Botones ---
 checkButton.addEventListener("click", () => {

@@ -7,7 +7,7 @@ h2.className = "container h2";
 h2.textContent = "Quiz Question";
 const p = document.createElement("p");
 p.className = "container p";
-
+//dasd
 const preguntas = [
   "¿Cuál es la capital de Francia?",
   "¿Cuál es el río más grande del mundo?",
